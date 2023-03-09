@@ -43,7 +43,6 @@ class Post {
       }
     );
 
-    db.close();
   }
 
   static getAll(callback) {
@@ -57,7 +56,6 @@ class Post {
       return callback(rows, null);
     });
 
-    db.close();
   }
 
   static getById(id, callback) {
@@ -68,10 +66,13 @@ class Post {
       if (err) {
         return callback(null, err);
       }
+      if(!row){
+        return callback(null, {message: "Post not found"});
+      }
+      
       return callback(row, null);
     });
 
-    db.close();
   }
 
   static updateById(id, updatedPost, callback) {
@@ -101,7 +102,6 @@ class Post {
       return callback(this, null);
     });
 
-    db.close();
   }
 }
 
