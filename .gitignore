@@ -1,0 +1,19 @@
+# Dependencies
+/node_modules
+
+# Environment Variables
+.env
+
+# Logs
+logs
+*.log
+
+# Output folder
+/dist
+
+# Debug
+.vscode
+
+# OS-generated files
+.DS_Store
+Thumbs.db
