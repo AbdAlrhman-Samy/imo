@@ -1,7 +1,6 @@
 const db = require("./db");
 const { v4: uuid4 } = require("uuid");
 
-
 /*
 
 User Model:
@@ -25,6 +24,7 @@ class User {
       .join("")}`;
   }
 
+  // create a new user
   static create(newUser, callback) {
     const id = uuid4();
 
@@ -38,52 +38,56 @@ class User {
       [id, newUser.username, newUser.email, newUser.password, newUser.avatar],
       function (err) {
         if (err) {
-          return callback(null, err);
+          return callback(err);
         }
-        return callback(this, null);
+        return callback(null);
       }
     );
-
-    db.close();
   }
 
+  // find a user by email
   static findByEmail(email, callback) {
     const query = `
     SELECT * FROM users
     WHERE email = ?;`;
 
-    db.get(query, [email], (err, row) => {
+    db.get(query, [email], function (err, row) {
       if (err) {
-        return callback(null, err);
+        return callback(err, null);
       }
 
-      if (!row) {
-        return callback(null, null);
-      }
-
-      return callback(row, null);
+      return callback(null, row);
     });
   }
 
+  // toggle admin status of a user
+  static toggleAdmin(id, callback) {
+    const query = `
+    UPDATE users
+    SET isAdmin = NOT isAdmin
+    WHERE id = ?;`;
+
+    db.run(query, [id], function (err) {
+      if (err) {
+        return callback(err);
+      }
+      return callback(null);
+    });
+  }
+
+  // delete a user by id
   static delete(id, callback) {
     const query = `
     DELETE FROM users
     WHERE id = ?;`;
 
-    db.run(
-      query,
-      [id],
-      function (err) {
-        if (err) {
-          return callback(null, err);
-        }
-        return callback(this, null);
+    db.run(query, [id], function (err) {
+      if (err) {
+        return callback(null, err);
       }
-    )
-
+      return callback(this, null);
+    });
   }
-
 }
 
 module.exports = User;
-

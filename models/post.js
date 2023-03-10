@@ -30,19 +30,20 @@ class Post {
     INSERT INTO posts 
     (title, content, author_id, thumbnail, header)
     VALUES (?, ?, ?, ?, ?);`;
-    const params = [newPost.title, newPost.content, newPost.authorId, newPost.thumbnail, newPost.header];
+    const params = [
+      newPost.title,
+      newPost.content,
+      newPost.authorId,
+      newPost.thumbnail,
+      newPost.header,
+    ];
 
-    db.run(
-      query,
-      params,
-      function (err) {
-        if (err) {
-          return callback(null, err);
-        }
-        return callback(this, null);
+    db.run(query, params, function (err) {
+      if (err) {
+        return callback(null, err);
       }
-    );
-
+      return callback(this, null);
+    });
   }
 
   static getAll(callback) {
@@ -55,7 +56,6 @@ class Post {
       }
       return callback(rows, null);
     });
-
   }
 
   static getById(id, callback) {
@@ -66,29 +66,29 @@ class Post {
       if (err) {
         return callback(null, err);
       }
-      if(!row){
-        return callback(null, {message: "Post not found"});
+      if (!row) {
+        return callback(null, { message: "Post not found" });
       }
-      
+
       return callback(row, null);
     });
-
   }
 
   static updateById(id, updatedPost, callback) {
-
-    // convert the date to the format that sqlite accepts    
-    updatedPost.updated_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    // convert the date to the format that sqlite accepts
+    updatedPost.updated_at = new Date()
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
 
     const keys = Object.keys(updatedPost);
     const values = Object.values(updatedPost);
 
-    // dynamic set query and params so it would only update the fields that are passed in the updatedPost object
+    // dynamic set query and params so it would only update the fields
+    // that are passed in the updatedPost object
     const query = `
     UPDATE posts SET 
-    ${keys
-      .map((key) => `${key} = ?`)
-      .join(", ")}
+    ${keys.map((key) => `${key} = ?`).join(", ")}
       WHERE id = ?;`;
 
     console.log(query);
@@ -101,7 +101,17 @@ class Post {
       }
       return callback(this, null);
     });
+  }
 
+  static delete(id, callback) {
+    const query = `DELETE FROM posts WHERE id = ?;`;
+
+    db.run(query, [id], function (err) {
+      if (err) {
+        return callback(err);
+      }
+      return callback(null);
+    });
   }
 }
 
