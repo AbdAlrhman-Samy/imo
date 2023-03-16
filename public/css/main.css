@@ -60,7 +60,9 @@ body {
   font-weight: 600;
   background: var(--gradient);
   background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: var(--primary);
 }
 
 .hero__tagline {
@@ -152,7 +154,9 @@ body {
   font-size: 3rem;
   background: var(--gradient);
   background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: var(--primary);
 }
 
 .account-form__message {
