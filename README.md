@@ -6,6 +6,8 @@ A blog web application built with Express.js, SQLite, and Nunjucks.
 
 "imo" is a web application that allows users to create and share their opinions on various topics. Only registered admins can create, edit, and delete posts. All users can view posts and comment on them.
 
+> README is still a WIP.
+
 ## Features
 
 - #### Role based authentication: 
