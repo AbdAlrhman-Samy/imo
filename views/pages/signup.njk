@@ -1,0 +1,45 @@
+{% extends "../index.njk" %}
+
+{% block content %}
+
+<main class="account-page">
+  <form action="/user/signup" method="post" class="account-form">
+
+
+
+    <h1 class="account-form__title">
+      Join Us!
+    </h1>
+
+    {% if error %}
+
+    <h3 class="account-form__message account-form__message--error">{{ error }}</h3>
+
+    {% endif %}
+
+    <div class="account-form__group">
+      <label for="username" class="account-form__label">Username</label>
+      <input type="text" name="username" id="username" class="account-form__input">
+    </div>
+
+    <div class="account-form__group">
+      <label for="email" class="account-form__label">Email</label>
+      <input type="email" name="email" id="email" class="account-form__input">
+    </div>
+
+    <div class="account-form__group">
+      <label for="password" class="account-form__label">Password</label>
+      <input type="password" name="password" id="password" class="account-form__input">
+    </div>
+
+
+    <a href="/user/login">Already have an account yet? Log In</a>
+
+    <button type="submit" class="account-form__submit"> <i class="gg-user-add"></i> Create Account</button>
+
+  </form>
+</main>
+
+
+
+{% endblock %}

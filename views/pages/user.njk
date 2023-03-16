@@ -1,0 +1,31 @@
+{% extends "../index.njk" %}
+
+{% block content %}
+
+<main class="user-page" style="text-align: center;">
+
+  <h1>My Account</h1>
+  <div style="border: 3px dashed red;">
+    <img src="{{ user.avatar }}" height="128" width="128" alt="{{ user.username }}'s avatar" />
+    <h2>{{ user.username }}</h2>
+    <h4>
+      <b>Role: </b>
+      {% if user.isAdmin %}
+        Admin
+      {% else %}
+        User
+      {% endif %}
+    </h4>
+    <p>{{ user.email }}</p>
+    <form action="/user/logout" method="POST">
+      <button type="submit" class="account-form__submit">Log out</button>
+    </form>
+  </div>
+
+
+
+</main>
+
+
+
+{% endblock %}

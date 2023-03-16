@@ -1,20 +1,33 @@
 const express = require('express');
-const authRouter = express.Router();
+const userRouter = express.Router();
 
 const { 
+    userPage,
     signup,
+    signupPage,
     login,
+    loginPage,
+    logout,
     toggleAdmin,
     deleteUser
  } = require('../controllers/users');
+const requireAdmin = require('../middleware/adminMiddleware');
+const requireAuth = require('../middleware/authMiddleware');
 
+userRouter.get('/', userPage)
 
-authRouter.post('/signup', signup);
+userRouter.route('/signup')
+    .get(signupPage)
+    .post(signup);
 
-authRouter.post('/login', login);
+userRouter.route('/login')
+    .get(loginPage)
+    .post(login);
 
-authRouter.route('/:id')
-    .put(toggleAdmin)
-    .delete(deleteUser);
+userRouter.post('/logout', requireAuth, logout);
 
-module.exports = authRouter;
+userRouter.route('/:id')
+    .put([requireAuth, requireAdmin], toggleAdmin)
+    .delete([requireAuth, requireAdmin], deleteUser);
+
+module.exports = userRouter;

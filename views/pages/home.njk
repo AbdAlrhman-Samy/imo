@@ -1,0 +1,68 @@
+{% extends "../index.njk" %}
+
+{% block content %}
+
+<header class="hero">
+
+  <a href="/user" class="hero__user {{'hero__user--logged-in'}}" title="{{ user.username }}">
+    {% if user %}
+      <img src="{{user.avatar}}" alt="{{ user.username }}'s avatar" class="hero__avatar">
+    {% else %}
+      <i class="gg-user"></i>
+    {% endif %}
+    
+  </a>
+
+  <h1 class="hero__title">in my opinion.</h1>
+  <p class="hero__tagline">
+    The world's most unnecessary opinions in one place.
+  </p>
+</header>
+
+
+<main class="posts-list">
+
+  <div class="post">
+    <div class="post__thumbnail">
+      <img src="https://picsum.photos/200" height="200" width="200" alt="placeholder">
+    </div>
+
+    <hgroup class="post__details">
+      <h3 class="post__title">This is a Title.</h3>
+      <p class="post__subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, tenetur.</p>
+      <a href="#" class="post__link">Read Post</a>
+    </hgroup>
+  </div>
+
+  <div class="post">
+    <div class="post__thumbnail">
+      <img src="https://picsum.photos/200" height="200" width="200" alt="placeholder">
+    </div>
+
+    <hgroup class="post__details">
+      <h3 class="post__title">This is a Title.</h3>
+      <p class="post__subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, tenetur.</p>
+      <a href="#" class="post__link">Read Post</a>
+    </hgroup>
+  </div>
+
+  {% for post in posts %}
+
+  <div class="post">
+    <img src="https://picsum.photos/200" alt="placeholder" class="post__thumbnail">
+
+    <hgroup class="post__details">
+      <h3 class="post__title">{{post.title}}</h3>
+      <p class="post__subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, tenetur.</p>
+      <a href="#" class="post__link">Read Post</a>
+    </hgroup>
+  </div>
+
+  {% endfor %}
+
+</main>
+
+  {% include "../components/footer.njk" %}
+
+
+{% endblock %}

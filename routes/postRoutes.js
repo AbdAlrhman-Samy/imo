@@ -8,15 +8,17 @@ const {
   updatePost,
   deletePost,
 } = require("../controllers/posts");
+const requireAdmin = require("../middleware/adminMiddleware");
+const requireAuth = require("../middleware/authMiddleware");
 
 
 postsRouter.get("/", getAllPosts);
 
-postsRouter.post("/post", createPost);
+postsRouter.post("/post", [requireAuth, requireAdmin], createPost);
 
 postsRouter.route("/post/:id")
   .get(getPostById)
-  .put(updatePost)
-  .delete(deletePost);
+  .put([requireAuth, requireAdmin], updatePost)
+  .delete([requireAuth, requireAdmin], deletePost);
 
 module.exports = postsRouter;

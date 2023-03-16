@@ -1,0 +1,46 @@
+{% extends "../index.njk" %}
+
+{% block content %}
+
+<main class="account-page">
+  <form action="/user/login" method="post" class="account-form">
+
+
+
+    <h1 class="account-form__title">
+      Welcome Back!
+    </h1>
+
+    {% if error %}
+
+    <h3 class="account-form__message account-form__message--error">{{ error }}</h3>
+
+    {% endif %}
+
+    {% if success %}
+
+    <h3 class="account-form__message account-form__message--success">{{ success }}</h3>
+
+    {% endif %}
+
+    <div class="account-form__group">
+      <label for="email" class="account-form__label">Email</label>
+      <input type="email" name="email" id="email" class="account-form__input">
+    </div>
+
+    <div class="account-form__group">
+      <label for="password" class="account-form__label">Password</label>
+      <input type="password" name="password" id="password" class="account-form__input">
+    </div>
+
+
+    <a href="/user/signup">Don't have an account yet? Sign Up</a>
+
+    <button type="submit" class="account-form__submit"> <i class="gg-log-in"></i> Login</button>
+
+  </form>
+</main>
+
+
+
+{% endblock %}

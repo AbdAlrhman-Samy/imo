@@ -6,6 +6,7 @@ Post Model:
 
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT UNIQUE NOT NULL,
+  subtitle TEXT NOT NULL,
   content TEXT NOT NULL,
   author_id INTEGER NOT NULL,
   thumbnail TEXT NOT NULL,
@@ -17,8 +18,9 @@ Post Model:
 */
 
 class Post {
-  constructor(title, content, authorId, thubmnail, header) {
+  constructor(title, subtitle, content, authorId, thubmnail, header) {
     this.title = title;
+    this.subtitle = subtitle;
     this.content = content;
     this.authorId = authorId;
     this.thumbnail = thubmnail;
@@ -28,21 +30,22 @@ class Post {
   static create(newPost, callback) {
     const query = `
     INSERT INTO posts 
-    (title, content, author_id, thumbnail, header)
-    VALUES (?, ?, ?, ?, ?);`;
+    (title, subtitle, content, author_id, thumbnail, header)
+    VALUES (?, ?, ?, ?, ?, ?);`;
     const params = [
       newPost.title,
+      newPost.subtitle,
       newPost.content,
       newPost.authorId,
       newPost.thumbnail,
       newPost.header,
     ];
 
-    db.run(query, params, function (err) {
+    db.run(query, params, function (post, err) {
       if (err) {
         return callback(null, err);
       }
-      return callback(this, null);
+      return callback(this.lastID , null);
     });
   }
 

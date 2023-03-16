@@ -52,7 +52,13 @@ Please note that this application is for educational purposes only and should no
 ## TODO
 - [x] Create database schema and models
 - [x] Get nunjucks to work with express
-- [ ] use static files
-- [ ] Add user authentication
+- [x] use static files
+- [x] Add user authentication
 - [ ] Make a good looking, responsive UI
+  - [x] Homepage
+  - [ ] Post page
+  - [x] Login page
+  - [x] Signup page
+  - [ ] User page
+  - [ ] Admin page
 - [ ] Deploy to Render/Cyclic/Fly.io
