@@ -1,5 +1,9 @@
 {% extends "../index.njk" %}
 
+{% block css %}
+  <link rel="stylesheet" href="/css/main.css">    
+{% endblock %}
+
 {% block content %}
 
 <header class="hero">
@@ -22,39 +26,15 @@
 
 <main class="posts-list">
 
-  <div class="post">
-    <div class="post__thumbnail">
-      <img src="https://picsum.photos/200" height="200" width="200" alt="placeholder">
-    </div>
-
-    <hgroup class="post__details">
-      <h3 class="post__title">This is a Title.</h3>
-      <p class="post__subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, tenetur.</p>
-      <a href="#" class="post__link">Read Post</a>
-    </hgroup>
-  </div>
-
-  <div class="post">
-    <div class="post__thumbnail">
-      <img src="https://picsum.photos/200" height="200" width="200" alt="placeholder">
-    </div>
-
-    <hgroup class="post__details">
-      <h3 class="post__title">This is a Title.</h3>
-      <p class="post__subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, tenetur.</p>
-      <a href="#" class="post__link">Read Post</a>
-    </hgroup>
-  </div>
-
   {% for post in posts %}
 
   <div class="post">
-    <img src="https://picsum.photos/200" alt="placeholder" class="post__thumbnail">
+    <img src="{{post.thumbnail}}" alt="{{post.title}}" class="post__thumbnail">
 
     <hgroup class="post__details">
       <h3 class="post__title">{{post.title}}</h3>
       <p class="post__subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, tenetur.</p>
-      <a href="#" class="post__link">Read Post</a>
+      <a href="/post/{{post.id}}" class="post__link">Read Post</a>
     </hgroup>
   </div>
 

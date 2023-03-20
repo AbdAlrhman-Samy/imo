@@ -1,5 +1,5 @@
 const Post = require("../models/post");
-
+const User = require("../models/user");
 // @desc    Get all posts
 // @route   GET /
 // @access  Public
@@ -24,7 +24,19 @@ const getPostById = (req, res) => {
     if (err) {
       return res.render("error.njk", { error: err });
     }
-    return res.render("post.njk", post);
+
+    User.findById(post.author_id, (author, err) => {
+      if (err) {
+        return res.render("pages/error.njk", { error: err });
+      }
+      const postAuthor = {
+        name: author.username,
+        avatar: author.avatar,
+      }
+
+      post.author = postAuthor;
+      return res.render("pages/post.njk", post);
+    });
   });
 };
 
@@ -44,16 +56,17 @@ const createPost = (req, res) => {
   Post.create(newPost, (postID, err) => {
     if (err) {
       console.log(err);
-      return res.render("error.njk", { error: err });
+      return res.render("pages/error.njk", { error: err });
     }
 
     // if the post was created successfully, get it from the db and render it
     // !: why does express creating a post request when i redirect to /post/:id?
     Post.getById(postID, (post, err) => {
       if (err) {
-        return res.render("error.njk", { error: err });
+        console.log(err);
+        return res.render("pages/error.njk", { error: err });
       }
-      res.render("post.njk", post);
+      res.render("pages/post.njk", post);
     });
   });
 };
@@ -70,7 +83,7 @@ const updatePost = (req, res) => {
     { title, subtitle, content, thumbnail, header, authorID },
     (post, err) => {
       if (err) {
-        return res.render("error.njk", { error: err });
+        return res.render("pages/error.njk", { error: err });
       }
       return res.redirect(`/post/${post.id}`);
     }
@@ -84,7 +97,7 @@ const deletePost = (req, res) => {
   const { id } = req.params;
   Post.delete(id, (err) => {
     if (err) {
-      return res.render("error.njk", { error: err });
+      return res.render("pages/error.njk", { error: err });
     }
     return res.redirect(`/`);
   });

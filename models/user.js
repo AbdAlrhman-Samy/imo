@@ -60,6 +60,20 @@ class User {
     });
   }
 
+  // find a user by id
+  static findById(id, callback) {
+    const query = `
+    SELECT * FROM users
+    WHERE id = ?;`;
+
+    db.get(query, [id], function (row, err) {
+      if (err) {
+        return callback(err, null);
+      }
+      return callback(null, row);
+    });
+  }
+
   // toggle admin status of a user
   static toggleAdmin(id, callback) {
     const query = `

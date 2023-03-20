@@ -1,0 +1,15 @@
+{% extends "../index.njk" %}
+
+{% block content %}
+<hgroup>
+  <h1>{{title}}</h1>
+  <p>{{subtitle}}</p>
+</hgroup>
+
+<h3>by {{author.name}}</h3>
+
+<img src="{{header}}" alt="Post header">
+
+<p>{{content}}</p>
+
+{% endblock %}

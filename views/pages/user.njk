@@ -1,27 +1,74 @@
 {% extends "../index.njk" %}
 
+{% block css %}
+<link rel="stylesheet" href="/css/profile.css">
+{% endblock %}
+
 {% block content %}
 
-<main class="user-page" style="text-align: center;">
+<main class="user-page">
 
-  <h1>My Account</h1>
-  <div style="border: 3px dashed red;">
-    <img src="{{ user.avatar }}" height="128" width="128" alt="{{ user.username }}'s avatar" />
-    <h2>{{ user.username }}</h2>
-    <h4>
-      <b>Role: </b>
+  <header class="user-header">
+    <div class="user-header__avatar">
+      <img src="{{ user.avatar }}" alt="{{ user.username }}'s avatar" class="user-header__image">
+    </div>
+
+    <div class="user-header__details">
+      <h1 class="user-header__title">
+        Hello,
+        {{ user.username }}!
+      </h1>
+
       {% if user.isAdmin %}
-        Admin
+      <h3>Admin</h3>
       {% else %}
-        User
-      {% endif %}
-    </h4>
-    <p>{{ user.email }}</p>
-    <form action="/user/logout" method="POST">
-      <button type="submit" class="account-form__submit">Log out</button>
-    </form>
-  </div>
+      <h3>Guest</h3>
 
+      {% endif %}
+
+
+      <form action="/user/logout" method="POST">
+        <button type="submit" class="user-header__logout">Log out</button>
+      </form>
+
+    </div>
+
+  </header>
+
+  {% if user.isAdmin %}
+    <form action="/post" method="POST" class="post-form">
+
+      <div class="post-form__group">
+        <label for="">Title</label>
+        <input type="text" name="title" id="title">
+      </div>
+
+      <div class="post-form__group">
+        <label for="">Subtitle</label>
+        <input type="text" name="subtitle" id="">
+      </div>
+
+      <div class="post-form__group">
+        <label for="">Content</label>
+        <textarea name="content" id="" cols="30" rows="10"></textarea>
+      </div>
+
+      <div class="post-form__group">
+        <label for="">Thumbnail</label>
+        <input type="text" name="thumbnail" id="">
+      </div>
+
+      <div class="post-form__group">
+        <label for="">Header</label>
+        <input type="text" name="header" id="">
+      </div>
+
+      <input type="text" name="authorID" value="{{user.id}}" readonly hidden>
+
+      <button type="submit">Create Post</button>
+    </form>
+  
+  {% endif %}
 
 
 </main>

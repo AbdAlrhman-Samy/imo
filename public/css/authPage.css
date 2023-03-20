@@ -1,0 +1,103 @@
+@import url("./_reset.css");
+@import url("./_variables.css");
+
+.account-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-image: url("../img/bg-mobile.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: center;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.account-form__title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  text-align: center;
+  font-weight: 400;
+  font-size: 3rem;
+  background: var(--gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--primary);
+}
+
+.account-form__message {
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.account-form__message--error {
+  color: darkred;
+  background-color: rgba(250, 128, 114, 0.65);
+}
+
+.account-form__message--success {
+  color: darkgreen;
+  background-color: lightgreen;
+}
+
+.account-form__label {
+  font-weight: 600;
+  display: block;
+  color: var(--text-dark);
+  font-size: larger;
+}
+
+.account-form__input {
+  padding: 1rem;
+  border-color: var(--text-dark);
+  border-radius: 10px;
+  width: 100%;
+}
+
+.account-form__input:focus {
+  border-color: var(--primary);
+  outline: var(--secondary) solid 3px;
+}
+
+.account-form__submit {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  border: 3px solid var(--text-dark);
+  color: var(--text-dark);
+  border-radius: 5px;
+  background-color: white;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  transition: 150ms ease-in-out;
+}
+
+.account-form__submit:hover {
+  background-color: var(--text-dark);
+  color: white;
+}
+
+.account-form__submit:active {
+  background-color: var(--text-dark);
+  color: white;
+}
+
+
+@media only screen and (min-width: 768px) {
+  .account-page {
+    background-image: url("../img/bg.svg");
+  }
+
+}
