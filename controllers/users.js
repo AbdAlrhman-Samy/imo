@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Post = require("../models/post");
 const bcrypt = require("bcrypt");
 const expressAsyncHandler = require("express-async-handler");
 
@@ -7,10 +8,19 @@ const expressAsyncHandler = require("express-async-handler");
 // @access  Private
 const userPage = (req, res) => {
   if (req.session.user) {
-    return res.render("pages/user.njk", { user: req.session.user });
+    if (req.session.user.isAdmin) {
+      Post.getAll((posts, err) => {
+        if (err) {
+          return res.render("pages/error.njk", { error: err });
+        }
+        return res.render("pages/user.njk", { posts, user: req.session.user });
+      });
+    } else {
+      return res.render("pages/user.njk", { user: req.session.user });
+    }
+  } else {
+    return res.redirect("/user/login");
   }
-
-  return res.redirect("/user/login");
 };
 
 // @desc    Signup user
@@ -47,11 +57,9 @@ const signup = expressAsyncHandler(async (req, res) => {
           .status(500)
           .render("pages/signup.njk", { error: err.message });
       }
-      return res
-        .status(201)
-        .render("pages/login.njk", {
-          success: "User created successfully, Login now!",
-        });
+      return res.status(201).render("pages/login.njk", {
+        success: "User created successfully, Login now!",
+      });
     });
   });
 });
@@ -132,8 +140,8 @@ const toggleAdmin = expressAsyncHandler(async (req, res) => {
 // @route   POST /user/logout
 // @access  Private
 const logout = (req, res) => {
-
-  if(!req.session.user) return res.render("pages/login.njk", { error: "You are not logged in." });
+  if (!req.session.user)
+    return res.render("pages/login.njk", { error: "You are not logged in." });
 
   req.session.destroy((err) => {
     if (err) {

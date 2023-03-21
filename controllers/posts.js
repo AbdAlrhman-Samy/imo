@@ -95,11 +95,12 @@ const updatePost = (req, res) => {
 // @access  Private
 const deletePost = (req, res) => {
   const { id } = req.params;
+  console.log("delete post", id);
   Post.delete(id, (err) => {
     if (err) {
-      return res.render("pages/error.njk", { error: err });
+      return res.status(500).json({ error: err });
     }
-    return res.redirect(`/`);
+    return res.status(200).json({ message: "Post deleted successfully!" });
   });
 };
 

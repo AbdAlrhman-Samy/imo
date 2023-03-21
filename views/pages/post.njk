@@ -1,15 +1,42 @@
 {% extends "../index.njk" %}
 
+{% block css %}
+<link rel="stylesheet" href="/css/post.css">
+<link rel="stylesheet" href="/css/main.css">
+{% endblock %}
+
 {% block content %}
-<hgroup>
-  <h1>{{title}}</h1>
-  <p>{{subtitle}}</p>
-</hgroup>
 
-<h3>by {{author.name}}</h3>
+<main class="post-page">
 
-<img src="{{header}}" alt="Post header">
+  <header class="header" style="background-image: linear-gradient(rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.65) 75%), url('{{header}}');">
 
-<p>{{content}}</p>
+    <a href="/" class="header__home-btn">
+      <i class="gg-home"></i>
+    </a>
+
+    <hgroup>
+      <h1 class="header__title">
+        {{title}}
+      </h1>
+
+      <h3 class="header__author">
+        By: {{author.name}}
+      </h3>
+
+      <p class="header__subtitle">
+        {{subtitle}}
+      </p>
+    </hgroup>
+
+  </header>
+
+  <section class="content">
+    {{content}}
+  </section>
+
+</main>
+
+{% include "../components/footer.njk" %}
 
 {% endblock %}

@@ -15,7 +15,6 @@
   align-items: center;
   padding: 5rem;
   text-align: center;
-  background-color: antiquewhite;
 }
 
 .user-header__avatar {
@@ -48,6 +47,53 @@
 }
 
 .user-header__logout:hover {
+  color: #1D2939;
+  border: 3px solid #1D2939;
+  background-color: white;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: #F2F4F7;
+  padding: 5% 10%
+}
+
+.post-form__group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.post-form__group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.post-form__group input {
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 3px solid var(--text-dark);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: 200ms ease-in-out;
+}
+
+.post-form__submit {
+  background-color: #1D2939;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  border: 3px solid var(--text-dark);
+  cursor: pointer;
+  font-weight: 600;
+  transition: 200ms ease-in-out;
+}
+
+.post-form__submit:hover {
   color: #1D2939;
   border: 3px solid #1D2939;
   background-color: white;

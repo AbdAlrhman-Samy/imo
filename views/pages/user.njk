@@ -36,38 +36,54 @@
   </header>
 
   {% if user.isAdmin %}
-    <form action="/post" method="POST" class="post-form">
 
-      <div class="post-form__group">
-        <label for="">Title</label>
-        <input type="text" name="title" id="title">
-      </div>
+  <section class="posts-list">
+    <ul>
+      {% for post in posts %}
+      <li class="posts-list__item">
+        <a href="/post/{{post.id}}">{{post.title}}</a>
+        <span>
+          <button class="posts-list__edit">Edit</button>
 
-      <div class="post-form__group">
-        <label for="">Subtitle</label>
-        <input type="text" name="subtitle" id="">
-      </div>
+          <button onclick="deletePost(event, '{{post.id}}')" class="posts-list__delete">Delete</button>
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
 
-      <div class="post-form__group">
-        <label for="">Content</label>
-        <textarea name="content" id="" cols="30" rows="10"></textarea>
-      </div>
+  <form action="/post" method="POST" class="post-form">
 
-      <div class="post-form__group">
-        <label for="">Thumbnail</label>
-        <input type="text" name="thumbnail" id="">
-      </div>
+    <div class="post-form__group">
+      <label for="">Title</label>
+      <input type="text" name="title" id="title">
+    </div>
 
-      <div class="post-form__group">
-        <label for="">Header</label>
-        <input type="text" name="header" id="">
-      </div>
+    <div class="post-form__group">
+      <label for="subtitle">Subtitle</label>
+      <input type="text" name="subtitle" id="subtitle">
+    </div>
 
-      <input type="text" name="authorID" value="{{user.id}}" readonly hidden>
+    <div class="post-form__group">
+      <label for="content">Content</label>
+      <textarea name="content" id="content" cols="30" rows="10"></textarea>
+    </div>
 
-      <button type="submit">Create Post</button>
-    </form>
-  
+    <div class="post-form__group">
+      <label for="thumbnail">Thumbnail</label>
+      <input type="text" name="thumbnail" id="thumbnail">
+    </div>
+
+    <div class="post-form__group">
+      <label for="header">Header</label>
+      <input type="text" name="header" id="header">
+    </div>
+
+    <input type="text" name="authorID" value="{{user.id}}" readonly hidden>
+
+    <button type="submit" class="post-form__submit">Create Post</button>
+  </form>
+
   {% endif %}
 
 

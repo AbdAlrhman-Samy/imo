@@ -199,11 +199,7 @@ body {
   .post {
     padding: 1rem;
   }
-
-  .account-page {
-    background-image: url("../img/bg.svg");
-  }
-
+  
   .newsletter {
     flex-direction: row;
   }
